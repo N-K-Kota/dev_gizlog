@@ -31,6 +31,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::get('home', 'UserController@index')->name('home');
 
+    Route::resource('daily_reports', 'DailyReportsController');
     Route::get('attendance', ['as' => 'attendance.index', 'uses' => 'AttendanceController@index']);
     Route::post('attendance/register', ['as' => 'attendance.register.start', 'uses' => 'AttendanceController@setStartTime']);
     Route::put('attendance/{id}/register', ['as' => 'attendance.register.end', 'uses' => 'AttendanceController@setEndTime']);
