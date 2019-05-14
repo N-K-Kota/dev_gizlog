@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\User\DailyReportRequest;
 use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
@@ -45,13 +46,9 @@ class DailyReportsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
         //
-        $request->validate([
-            'title' => 'required',
-            'contents' => 'required'
-        ]);
         $input = $request->all();
         $this->dailyreport->create($input);
         return redirect()->route('daily_reports.index');
@@ -90,7 +87,7 @@ class DailyReportsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
         //
         $input = $request->all();
