@@ -115,9 +115,5 @@ class DailyReportsController extends Controller
         DailyReport::destroy($id);
         return redirect()->route('daily_reports.index');
     }
-
-    public function search(Request $request)
-    {
-        
-    }
+    
 }
