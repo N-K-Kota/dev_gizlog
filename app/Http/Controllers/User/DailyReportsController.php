@@ -4,7 +4,8 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\DailyReport;
+use Illuminate\Support\Facades\Auth;
 class DailyReportsController extends Controller
 {
     /**
@@ -12,10 +13,18 @@ class DailyReportsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $dailyreport;
+    public function __construct(DailyReport $report)
+    {
+        $this->middleware('auth');
+        $this->dailyreport = $report;
+    }
+
     public function index()
     {
         //
-        return view('user.daily_report.index');
+        $reports = $this->dailyreport->all();
+        return view('user.daily_report.index', compact('reports'));
     }
 
     /**
@@ -26,7 +35,8 @@ class DailyReportsController extends Controller
     public function create()
     {
         //
-        return view('user.daily_report.create');
+        $user_id = Auth::id();
+        return view('user.daily_report.create', compact('user_id'));
     }
 
     /**
@@ -38,6 +48,13 @@ class DailyReportsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'title' => 'required',
+            'contents' => 'required'
+        ]);
+        $input = $request->all();
+        $this->dailyreport->create($input);
+        return redirect()->route('daily_reports.index');
     }
 
     /**
@@ -49,7 +66,8 @@ class DailyReportsController extends Controller
     public function show($id)
     {
         //
-        return view('user.daily_report.show');
+        $report = $this->dailyreport->where(['id' => $id])->first();
+        return view('user.daily_report.show', compact('report'));
     }
 
     /**
@@ -61,7 +79,8 @@ class DailyReportsController extends Controller
     public function edit($id)
     {
         //
-        return view('user.daily_report.edit');
+        $report = $this->dailyreport->where('id', $id)->first();
+        return view('user.daily_report.edit', compact('report'));
     }
 
     /**
@@ -74,6 +93,9 @@ class DailyReportsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $input = $request->all();
+        $this->dailyreport->where('id', $id)->first()->update($input);
+        return redirect()->route('daily_reports.index');
     }
 
     /**
@@ -85,5 +107,7 @@ class DailyReportsController extends Controller
     public function destroy($id)
     {
         //
+        DailyReport::destroy($id);
+        return redirect()->route('daily_reports.index');
     }
 }

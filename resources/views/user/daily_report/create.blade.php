@@ -4,7 +4,9 @@
 <h2 class="brand-header">日報作成</h2>
 <div class="main-wrap">
   <div class="container">
-      <input class="form-control" name="user_id" type="hidden">
+  <form action="{{ route('daily_reports.store') }}" method="post">
+  @csrf
+      <input class="form-control" name="user_id" type="hidden" value="{{ $user_id }}">
       <div class="form-group form-size-small">
     <input class="form-control" name="reporting_time" type="date">
     <span class="help-block"></span>
@@ -18,6 +20,7 @@
       <span class="help-block"></span>
     </div>
     <button type="submit" class="btn btn-success pull-right">Add</button>
+    </form>
   </div>
 </div>
 
