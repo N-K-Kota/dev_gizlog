@@ -23,15 +23,15 @@
       </thead>
       <tbody>
       @foreach($reports as $report)
-          @php
+        @php
           $reporttime = new Datetime($report->reporting_time);
-          @endphp
-          <tr class="row">
-            <td class="col-xs-2">{{ $reporttime->format('m/d(D)') }}</td>
-            <td class="col-xs-3">{{ $report->title }}</td>
-            <td class="col-xs-5">{{ $report->contents }}</td>
-            <td class="col-xs-2"><a class="btn" href="{{ route('daily_reports.show', ['id' => $report->id]) }}"><i class="fa fa-book"></i></a></td>
-          </tr>
+        @endphp
+        <tr class="row">
+          <td class="col-xs-2">{{ $reporttime->format('m/d(D)') }}</td>
+          <td class="col-xs-3">{{ $report->title }}</td>
+          <td class="col-xs-5">{{ $report->contents }}</td>
+          <td class="col-xs-2"><a class="btn" href="{{ route('daily_reports.show', ['id' => $report->id]) }}"><i class="fa fa-book"></i></a></td>
+        </tr>
       @endforeach
       </tbody>
     </table>

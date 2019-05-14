@@ -83,8 +83,9 @@ class DailyReportsController extends Controller
     public function edit($id)
     {
         //
+        $user_id = Auth::id();
         $report = $this->dailyreport->where('id', $id)->first();
-        return view('user.daily_report.edit', compact('report'));
+        return view('user.daily_report.edit', compact('report', 'user_id'));
     }
 
     /**
