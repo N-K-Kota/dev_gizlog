@@ -46,7 +46,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('question/{id}/confirm', ['as' => 'confirm.update', 'uses' => 'QuestionController@confirm']);
     Route::post('question/{id}/comment', ['as' => 'question.comment', 'uses' => 'QuestionController@storeComment']);
     Route::resource('question', QuestionController::class);
-    Route::post('daily_reports/search', 'DailyReportsController@search')->name('daily_reports.search');
+    Route::post('daily_reports/index', 'DailyReportsController@index')->name('daily_reports.search');
 });
 
 

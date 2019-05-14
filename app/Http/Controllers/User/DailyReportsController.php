@@ -21,11 +21,18 @@ class DailyReportsController extends Controller
         $this->dailyreport = $report;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         //
-        $reports = $this->dailyreport->all();
-        return view('user.daily_report.index', compact('reports'));
+        $input = $request->input('search-month');
+        if($input) {
+            $month = substr($input, -2);
+            $searchedreports = DailyReport::whereMonth('reporting_time', $month)->get();
+            return view('user.daily_report.index', ['reports' => $searchedreports]);
+        } else {
+            $reports = $this->dailyreport->all();
+            return view('user.daily_report.index', compact('reports'));
+        }   
     }
 
     /**
@@ -110,9 +117,6 @@ class DailyReportsController extends Controller
 
     public function search(Request $request)
     {
-        $input = $request->input('search-month');
-        $month = substr($input, -2);
-        $searchedreports = DailyReport::whereMonth('reporting_time', $month)->get();
-        return view('user.daily_report.index', ['reports' => $searchedreports]);
+        
     }
 }
