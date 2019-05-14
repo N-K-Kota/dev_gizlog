@@ -107,4 +107,12 @@ class DailyReportsController extends Controller
         DailyReport::destroy($id);
         return redirect()->route('daily_reports.index');
     }
+
+    public function search(Request $request)
+    {
+        $input = $request->input('search-month');
+        $month = substr($input, -2);
+        $searchedreports = DailyReport::whereMonth('reporting_time', $month)->get();
+        return view('user.daily_report.index', ['reports' => $searchedreports]);
+    }
 }
