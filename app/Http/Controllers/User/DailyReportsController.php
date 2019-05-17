@@ -23,8 +23,8 @@ class DailyReportsController extends Controller
 
     public function index(Request $request)
     {
-        $input = $request->only('search-month');
-        if($input['search-month']) {
+        if($request->filled('search-month')) {
+            $input = $request->only('search-month');
             $month = substr($input['search-month'], -2);
             $reports = DailyReport::whereMonth('reporting_time', $month)->get();
         } else {
