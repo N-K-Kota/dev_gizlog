@@ -21,7 +21,7 @@ class DailyReportsController extends Controller
 
     /**
     * Show top page
-    * @param  \Illuminate\Http\Request
+    * @param  \Illuminate\Http\Request $request
     * @return \Illuminate\Http\Response
     */
     public function index(Request $request)
