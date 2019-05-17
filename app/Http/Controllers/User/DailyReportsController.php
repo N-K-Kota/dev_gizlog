@@ -9,10 +9,8 @@ use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
 class DailyReportsController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     private $dailyreport;
     public function __construct(DailyReport $report)
@@ -21,6 +19,11 @@ class DailyReportsController extends Controller
         $this->dailyReport = $report;
     }
 
+    /**
+    * Show top page
+    * @param  \Illuminate\Http\Request
+    * @return \Illuminate\Http\Response
+    */
     public function index(Request $request)
     {
         if($request->filled('search-month')) {
@@ -47,7 +50,7 @@ class DailyReportsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\User\DailyReportRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DailyReportRequest $request)
@@ -85,7 +88,7 @@ class DailyReportsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\User\DailyReportRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
